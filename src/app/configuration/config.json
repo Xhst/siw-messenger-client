@@ -1,0 +1,17 @@
+{
+	"useAuthCookie" : true,
+
+	"server": {
+		"host": "localhost",
+		"port": 8081,
+		"channel": "siw-messenger",
+		"ssl": false
+	},
+
+	"logger": {
+		"info": true,
+		"debug": true,
+		"warn": true,
+		"error": true
+	}
+}
