@@ -9,7 +9,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "heroku-postbuild": "npm install && npm run build --fix"
+    "heroku-postinstall": "npm install && npm run build --fix"
   },
   "dependencies": {
     "@stomp/stompjs": "^6.1.0",
