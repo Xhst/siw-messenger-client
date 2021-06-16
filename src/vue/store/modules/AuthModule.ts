@@ -2,6 +2,7 @@ import Configuration from "@/app/configuration/config.json";
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import { AuthService } from '@/app/authentication/AuthService';
 import { getCookie } from '@/app/utils/Cookie';
+import { SiwMessenger } from "@/app/SiwMessenger";
 
 export type LoginData = {
     username: string,
@@ -20,6 +21,7 @@ const storedUser = Configuration.useAuthCookie ? getCookie('user') : localStorag
 export class Auth extends VuexModule {
     private authService = new AuthService();
     private loggedIn = storedUser !== null;
+    private siwMessenger = SiwMessenger.instance;
 
     user = storedUser ? JSON.parse(storedUser) : null;
 
@@ -49,9 +51,16 @@ export class Auth extends VuexModule {
             return Promise.resolve(response.data);
         } catch(error) {
             this.context.commit('registerFailure');
+
             const message = (error.response && error.response.data && error.response.data.message) 
                     || error.message || error.toString();
 
+            const errors = error.response.data.errors;
+
+            if (errors) {
+                this.siwMessenger.errors = errors
+            }
+            
             return Promise.reject(message);
         }
     }

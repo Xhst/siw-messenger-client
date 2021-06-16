@@ -45,6 +45,7 @@ import FormInput from "../forms/FormInput.vue";
 import FormButton from "../forms/FormButton.vue";
 import { namespace } from "vuex-class";
 import { RegisterData } from "@/vue/store/modules/AuthModule";
+
 const Auth = namespace("Auth");
 
 @Options({
@@ -61,6 +62,7 @@ export default class RegisterVue extends Vue {
 
   message = "";
 
+
   @Auth.Getter
   private isLoggedIn!: boolean;
 
@@ -74,7 +76,7 @@ export default class RegisterVue extends Vue {
     this.updateRepeatPasswordInput();
 
     if (
-      !this.checkUsername(this.username) ||
+      //!this.checkUsername(this.username) ||
       !this.checkPassword(this.password) ||
       this.password != this.repeatPassword
     ) return;

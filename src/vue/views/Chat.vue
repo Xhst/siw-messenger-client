@@ -31,7 +31,6 @@ import GroupModal from "../components/chat/GroupModal.vue"
 import Conversation from "../components/chat/Conversation.vue"
 import ChatLeftBar from "../components/chat/ChatLeftBar.vue"
 import { namespace } from "vuex-class";
-import { getCookie } from "@/app/utils/Cookie";
 const Auth = namespace("Auth");
 
 @Options({
@@ -58,10 +57,10 @@ export default class ChatVue extends Vue implements Observer {
       return;
 		}
 
-    const sm = SiwMessenger.instance;
+    const wsc = SiwMessenger.instance.webSocketClient;
 
-    sm.webSocketClient.connect(this.currentUser.token);
-    sm.webSocketClient.attach(this);
+    wsc.connect(this.currentUser.token);
+    wsc.attach(this);
 	}
 
   private addChat(id: number, name: string, isGroup: boolean = false, ownerName: string = ""): Chat {
