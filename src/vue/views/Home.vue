@@ -13,36 +13,6 @@
 				</div>
 			</div>
 		</div>
-		<form class="form-inline">
-			<div class="form-group">
-				<input
-					type="text"
-					id="from"
-					class="form-control"
-					v-model="from"
-					placeholder="from"/>
-				<input
-					type="text"
-					id="to"
-					class="form-control"
-					v-model="to"
-					placeholder="to"/>
-				<input
-					type="text"
-					id="message"
-					class="form-control"
-					v-model="message"
-					placeholder="message"/>
-			</div>
-			<button
-				id="send"
-				class="btn btn-default"
-				type="submit"
-				@click.prevent="send"
-			>
-				Send
-			</button>
-		</form>
 	</div>
 </template>
 

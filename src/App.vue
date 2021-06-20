@@ -55,7 +55,6 @@ export default class AppVue extends Vue implements Observer {
 
   update(observable: Observable): void {
     if (observable instanceof SiwMessenger) {
-      console.log("ERRORS:" + observable.errors);
       this.displayErrors(observable.errors);
     }
   }
