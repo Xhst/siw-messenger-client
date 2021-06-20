@@ -41,6 +41,17 @@
             </form>
         </div>
     </template> 
+    <template v-else>
+      <div class="d-flex justify-content-center p-5">
+        <div style="text-align:center">
+          <h2>Non hai nessuna chat attiva</h2>
+          <h6>
+            Scegli una chat oppure aggiungine di nuove!
+          </h6>
+          <img class="p-1" src="/images/chat.png">
+        </div>
+      </div>
+    </template>
 </div>
 </template>
 
