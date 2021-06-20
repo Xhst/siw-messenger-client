@@ -1,6 +1,6 @@
 <template>
-  <div class="form-group">
-    <button :id="name" class="btn btn-lg btn-success text-white text-shadow">
+  <div class="input-container">
+    <button :id="name" class="btn btn-lg btn-success text-white text-shadow position-relative">
       {{ text }}
     </button>
   </div>

@@ -10,19 +10,25 @@
       <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
     </symbol>
   </svg>
-  <template v-if="errors.length > 0"> 
+  <template v-if="messages.length > 0"> 
     <div class="position-absolute w-100" style="z-index:3000; opacity:0.95">
       <div class="container p-5">
-        <div class="alert alert-danger alert-dismissible w-100" role="alert">
+        <div :class="isErrorMessage ? 'alert-danger' : 'alert-success'" class="alert alert-dismissible w-100" role="alert">
           <h4 class="alert-heading">
-          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-          Oops!
+            <template v-if="isErrorMessage">
+              <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"><use xlink:href="#exclamation-triangle-fill"/></svg>
+              Oops!
+            </template>
+            <template v-else>
+              <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"><use xlink:href="#info-fill"/></svg>
+              Ottimo!
+            </template>
           </h4>
-          <button @click="closeErrorsAlert()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <button @click="closeMessagesAlert()" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           <hr>
           <ul>
-            <li v-for="error in errors" v-bind:key="error">
-              {{ error }}
+            <li v-for="message in messages" v-bind:key="message">
+              {{ message }}
             </li>
           </ul>
         </div>
@@ -39,23 +45,26 @@ import { Observable, Observer } from "./app/core/interfaces";
 import { SiwMessenger } from "./app/SiwMessenger";
 
 export default class AppVue extends Vue implements Observer {
-  errors: string[] = []
+  messages: string[] = [];
+  isErrorMessage: boolean = true;
 
   mounted(): void {
     SiwMessenger.instance.attach(this);
   }
 
-  private displayErrors(errors: string[]): void {
-    this.errors = errors;
+  private displayMessages(messages: string[], isError: boolean): void {
+    this.messages = messages;
+    this.isErrorMessage = isError;
+    console.log(isError);
   }
 
-  private closeErrorsAlert(): void {
-    this.errors = [];
+  private closeMessagesAlert(): void {
+    this.messages = [];
   }
 
   update(observable: Observable): void {
     if (observable instanceof SiwMessenger) {
-      this.displayErrors(observable.errors);
+      this.displayMessages(observable.messages, observable.isErrorMessage);
     }
   }
 }

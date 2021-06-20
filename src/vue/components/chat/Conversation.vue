@@ -1,8 +1,14 @@
 <template>
 <div class="card border-0">
     <template v-if="currentChat">
-        <div class="card-header top-bar p-1 overflow-hidden border-0">
-            {{ currentChat.name }}
+        <div class="card-header top-bar py-1 px-2 overflow-hidden border-0">
+            <h4>
+              <strong>{{ currentChat.isGroup ? 'Nome gruppo' : 'Chat con'}}: </strong>
+              {{ currentChat.name }}
+            </h4>
+            <h5 v-if="currentChat.isGroup">
+              <strong>Proprietario:</strong> {{ currentChat.ownerName }}
+            </h5> 
         </div>
         <div class="chat-conversation card-body card background border-0 overflow-auto">
             <chat-bubble-vue

@@ -48,6 +48,8 @@ export class Auth extends VuexModule {
             const response = await this.authService.register(data.username, data.email, data.password);
             this.context.commit('registerSuccess');
 
+            this.siwMessenger.setMessagesInfo(['Ti sei registrato con successo.'], false);
+            
             return Promise.resolve(response.data);
         } catch(error) {
             this.context.commit('registerFailure');
@@ -58,7 +60,7 @@ export class Auth extends VuexModule {
             const errors = error.response.data.errors;
 
             if (errors) {
-                this.siwMessenger.errors = errors
+                this.siwMessenger.setMessagesInfo(errors, true);
             }
             
             return Promise.reject(message);

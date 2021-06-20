@@ -6,7 +6,9 @@ export class SiwMessenger implements Observable {
 	private static _instance: SiwMessenger = new SiwMessenger();
 
 	private wrappedWebSocketClient: WebSocketClient;
-	private wrappedErrors: string[] = [];
+
+	isErrorMessage: boolean = true;
+	private wrappedMessages: string[] = [];
 	private observers: Observer[] = [];
 	
 
@@ -49,13 +51,18 @@ export class SiwMessenger implements Observable {
 		}
 	}
 
-	set errors(err: string[]) {
-		this.wrappedErrors = err;
+	setMessagesInfo(msg: string[], isError: boolean): void {
+		this.isErrorMessage = isError;
+		this.messages = msg;
+	}
+
+	set messages(msg: string[]) {
+		this.wrappedMessages = msg;
 		this.notify();
 	} 
 
-	get errors(): string[] {
-		return this.wrappedErrors;
+	get messages(): string[] {
+		return this.wrappedMessages;
 	}
 
 	get webSocketClient(): WebSocketClient {
